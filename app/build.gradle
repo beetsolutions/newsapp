@@ -36,6 +36,10 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 jacoco {
     toolVersion = "0.7.4+"
 }
