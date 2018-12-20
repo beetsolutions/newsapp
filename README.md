@@ -1,6 +1,8 @@
 # NewsApp [![Build Status](https://travis-ci.org/beetsolutions/newsapp.svg?branch=master)](https://travis-ci.org/beetsolutions/newsapp)
 
 ## Tech Used
+* MVVM
+* Data Binding
 * Kotlin
 * RxJava
 * Retrofit

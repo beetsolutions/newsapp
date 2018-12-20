@@ -1,9 +1,12 @@
 package com.beettechnologies.newsapp.di
 
+import android.arch.persistence.room.Room
 import com.beettechnologies.newsapp.App
 import com.beettechnologies.newsapp.BuildConfig
 import com.beettechnologies.newsapp.common.data.ApiInterceptor
 import com.beettechnologies.newsapp.common.data.api.ApiService
+import com.beettechnologies.newsapp.common.data.db.NewsDao
+import com.beettechnologies.newsapp.common.data.db.NewsDb
 import com.beettechnologies.newsapp.di.viewmodel.ViewModelModule
 import dagger.Module
 import dagger.Provides
@@ -17,6 +20,7 @@ import javax.inject.Singleton
 
 private const val BASE_URL: String = "https://newsapi.org/v2/"
 private const val API_KEY: String = "86f976d6ff2b443d8f25de83567d9169"
+private const val DATABASE: String = "news.db"
 
 @Module(includes = [ViewModelModule::class])
 internal object AppModule {
@@ -65,4 +69,21 @@ internal object AppModule {
     @Provides
     @JvmStatic
     fun provideCache(context: App) = Cache(context.cacheDir, 10 * 1024 * 1024.toLong())
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideDb(app: App): NewsDb {
+        return Room
+            .databaseBuilder(app, NewsDb::class.java, DATABASE)
+            .fallbackToDestructiveMigration()
+            .build()
+    }
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideNewsDao(db: NewsDb): NewsDao {
+        return db.newsDao()
+    }
 }

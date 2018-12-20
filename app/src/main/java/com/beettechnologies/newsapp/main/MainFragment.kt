@@ -1,5 +1,6 @@
 package com.beettechnologies.newsapp.main
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
@@ -42,5 +43,9 @@ class MainFragment : Fragment(), Injectable {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         mainViewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+        mainViewModel.setSource("reddit-r-all")
+        mainViewModel.newsResourceLiveData.observe(this, Observer { newsResource ->
+            binding.newsResource = newsResource
+        })
     }
 }
