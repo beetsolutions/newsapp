@@ -7,6 +7,8 @@
 * Room
 * Dagger 2
 * TDD
+* LiveData
+* Fragment Navigation
 
 ## Authors
 
