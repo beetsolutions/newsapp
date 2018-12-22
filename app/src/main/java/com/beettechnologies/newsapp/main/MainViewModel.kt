@@ -13,7 +13,7 @@ class MainViewModel @Inject constructor(app: App, repository: NewsRepository) : 
 
     private val source: MutableLiveData<String> = MutableLiveData()
 
-    val newsResourceLiveData: LiveData<Resource<List<News>>> = Transformations
+    val newsResourceLiveData: LiveData<Resource<MutableList<News>>> = Transformations
         .switchMap(source) { source ->
             if (source == null) {
                 AbsentLiveData.create()

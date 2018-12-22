@@ -12,8 +12,8 @@ import javax.inject.Inject
 
 class NewsRepository @Inject constructor(val schedulers: AppSchedulers, val api: ApiService, val newsDao: NewsDao) {
 
-    fun getNews(query: String, isNetworkAvailable: Boolean): Flowable<Resource<List<News>>> {
-        return object : RxNetworkBoundResource<List<News>, ArticleResponse>(isNetworkAvailable, schedulers) {
+    fun getNews(query: String, isNetworkAvailable: Boolean): Flowable<Resource<MutableList<News>>> {
+        return object : RxNetworkBoundResource<MutableList<News>, ArticleResponse>(isNetworkAvailable, schedulers) {
 
             override fun saveCallResult(request: ArticleResponse) {
                 request.articles.forEach {
@@ -31,7 +31,7 @@ class NewsRepository @Inject constructor(val schedulers: AppSchedulers, val api:
                 }
             }
 
-            override fun loadFromDb(): Flowable<List<News>> = newsDao.getNews(query)
+            override fun loadFromDb(): Flowable<MutableList<News>> = newsDao.getNews(query)
 
             override fun createCall(): Flowable<Response<ArticleResponse>> = api.queryReddit(query)
         }.asFlowAble()

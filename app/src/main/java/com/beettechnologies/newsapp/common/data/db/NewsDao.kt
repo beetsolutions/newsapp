@@ -11,7 +11,7 @@ import io.reactivex.Flowable
 abstract class NewsDao {
 
     @Query("""SELECT * FROM News WHERE source = :source""")
-    abstract fun getNews(source: String): Flowable<List<News>>
+    abstract fun getNews(source: String): Flowable<MutableList<News>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(vararg news: News)

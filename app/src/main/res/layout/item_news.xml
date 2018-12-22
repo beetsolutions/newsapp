@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:cardView="http://schemas.android.com/apk/res-auto"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-                name="viewModel"
-                type="com.beettechnologies.newsapp.main.MainViewModel"/>
+                name="item"
+                type="com.beettechnologies.newsapp.common.data.model.News"/>
     </data>
+
     <android.support.v7.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="380dp"
-            cardView:cardCornerRadius="8dp"
-            cardView:cardElevation="8dp"
-            android:layout_margin="8dp">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -24,10 +24,11 @@
             <ImageView
                     android:id="@+id/thumbnail"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="240dp"
                     android:layout_alignParentTop="true"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     tools:src="@drawable/bitcoin"
+                    app:url="@{item.urlToImage}"
                     tools:ignore="ContentDescription"/>
 
             <TextView
@@ -40,6 +41,7 @@
                     android:textColor="#222"
                     android:textStyle="bold"
                     android:textSize="22sp"
+                    android:text="@{item.title}"
                     tools:text="Title"/>
 
             <TextView
@@ -51,6 +53,7 @@
                     android:padding="8dp"
                     android:textColor="#666"
                     android:textSize="14sp"
+                    android:text="@{item.description}"
                     tools:text="Description"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
